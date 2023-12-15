@@ -30,7 +30,7 @@ Invoke the TableJoin Utility:
         final String separator = ",";
         final String defaultRightLine = null;
         
-        final String result = TableJoinClient.join(
+        final String result = TableJoin.join(
                 leftTableCSV,
                 rightTableCSV,
                 leftKeyColumnNumber,

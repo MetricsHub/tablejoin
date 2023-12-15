@@ -36,9 +36,9 @@ import java.util.stream.Stream;
  * @author bertrand
  *
  */
-public class TableJoinClient {
+public class TableJoin {
 
-	private TableJoinClient() {
+	private TableJoin() {
 
 	}
 
