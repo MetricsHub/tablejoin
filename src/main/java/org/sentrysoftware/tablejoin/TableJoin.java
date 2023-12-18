@@ -44,7 +44,6 @@ public class TableJoin {
 
 	/**
 	 * Joins to CSV-formatted tables (Strings) as an SQL JOIN statement would (INNER or LEFT JOIN)
-	 * <p>
 	 *
 	 * @param leftTable
 	 *             The left table (entries are separated by end-of-lines \n)
@@ -134,7 +133,7 @@ public class TableJoin {
 	 *             The cells separator
 	 * @return {@link List} of {@link List} table
 	 */
-	protected static List<List<String>> stringToTable(final String csvTable, final String separator) {
+	public static List<List<String>> stringToTable(final String csvTable, final String separator) {
 		if (csvTable != null) {
 			return Stream
 					.of(csvTable.split("\n"))
@@ -154,7 +153,7 @@ public class TableJoin {
 	 *             The cells serparator
 	 * @return {@link List} of {@link String}
 	 */
-	protected static List<String> lineToList(String line, final String separator) {
+	public static List<String> lineToList(String line, final String separator) {
 		if (line != null && !line.isEmpty()) {
 
 			// Make sure the line ends with the separator
@@ -173,7 +172,6 @@ public class TableJoin {
 	/**
 	 * Joins two tables ({@link List} of {@link List}) as an SQL JOIN statement
 	 * would (INNER or LEFT JOIN)
-	 * <p>
 	 *
 	 * @param leftTable
 	 *             The left table (entries are defined in a {@link List} of {@link String} values)
@@ -258,7 +256,7 @@ public class TableJoin {
 	 *             Whether the matching is done case insensitive
 	 * @return {@link String} value
 	 */
-	protected static String getKey(final List<String> line, final int keyColumnNumber, final boolean wbemKeyType,
+	public static String getKey(final List<String> line, final int keyColumnNumber, final boolean wbemKeyType,
 								   final boolean caseInsensitive) {
 		// Extract the key column from the line
 		String key = line.get(keyColumnNumber - 1);
@@ -285,7 +283,7 @@ public class TableJoin {
 	 *             The left line as {@link List}
 	 * @return <code>true</code> if the left line matches the conditions above
 	 */
-	protected static boolean isValidLeftLine(final int leftKeyColumnNumber, final List<String> leftLine) {
+	public static boolean isValidLeftLine(final int leftKeyColumnNumber, final List<String> leftLine) {
 		return leftKeyColumnNumber <= leftLine.size()
 				&& !leftLine.isEmpty()
 				&& !leftLine.get(leftKeyColumnNumber - 1).isEmpty();
@@ -311,7 +309,7 @@ public class TableJoin {
 	 *             The right table when each row is indexed by the right key
 	 * @return a line representation, i.e. {@link List} of {@link String} values
 	 */
-	protected static List<String> joinLine(final List<String> leftLine, final int leftKeyColumnNumber,
+	public static List<String> joinLine(final List<String> leftLine, final int leftKeyColumnNumber,
 										   final List<String> defaultRightLine, final boolean wbemKeyType, final boolean caseInsensitive,
 										   final boolean handleDefaultRightLine, final Map<String, List<String>> rightTableLookup) {
 
