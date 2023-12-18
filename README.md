@@ -1,4 +1,4 @@
-# TABLEJOIN Java Client
+# TableJoin Utility
 
 ![GitHub release (with filter)](https://img.shields.io/github/v/release/sentrysoftware/tablejoin)
 ![Build](https://img.shields.io/github/actions/workflow/status/sentrysoftware/tablejoin/deploy.yml)
