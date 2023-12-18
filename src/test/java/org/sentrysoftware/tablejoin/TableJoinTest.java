@@ -2,7 +2,6 @@ package org.sentrysoftware.tablejoin;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -28,7 +27,7 @@ class TableJoinTest {
 
 	@Test
 	void nullTable() {
-		assertNotNull(TableJoin.join(null, "", 1, 1, ";", null, false, true));
+		assertNull(TableJoin.join(null, "", 1, 1, ";", null, false, true));
 	}
 
 	@Test
