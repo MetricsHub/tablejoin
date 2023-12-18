@@ -6,7 +6,7 @@
 	<name>TableJoin Utility</name>
 	<version>1.0.00-SNAPSHOT</version>
 	<description>TableJoin Utility for Java</description>
-    <packaging>jar</packaging>
+	<packaging>jar</packaging>
 
 	<organization>
 		<name>Sentry Software</name>
