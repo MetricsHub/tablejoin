@@ -1,11 +1,13 @@
-# oss-maven-template
+# TableJoin Utility
 
-![GitHub release (with filter)](https://img.shields.io/github/v/release/sentrysoftware/oss-maven-template)
-![Build](https://img.shields.io/github/actions/workflow/status/sentrysoftware/oss-maven-template/deploy.yml)
-![GitHub top language](https://img.shields.io/github/languages/top/sentrysoftware/oss-maven-template)
-![License](https://img.shields.io/github/license/sentrysoftware/oss-maven-template)
+![GitHub release (with filter)](https://img.shields.io/github/v/release/sentrysoftware/tablejoin)
+![Build](https://img.shields.io/github/actions/workflow/status/sentrysoftware/tablejoin/deploy.yml)
+![GitHub top language](https://img.shields.io/github/languages/top/sentrysoftware/tablejoin)
+![License](https://img.shields.io/github/license/sentrysoftware/tablejoin)
 
-Repository template for all Sentry open-source Java projects, published on Maven Central.
+The TableJoin utility is designed for joining tables expressed in CSV or structed as list of String lists. It enhances the flexibility of data processing by allowing developers to perform joint operations on specified tables.
+
+See [Project Documentation](https://sentrysoftware.github.io/tablejoin/) and the [Javadoc](https://sentrysoftware.github.io/tablejoin/apidocs/) for more information on how to use this library in your code.
 
 ## Build instructions
 
@@ -31,8 +33,7 @@ But it is strongly recommended to only use [GitHub Actions "Release to Maven Cen
 
 ## License
 
-License is Apache-2. Each source file must include the Apache-2 header (build will fail otherwise).
-To update source files with the proper header, simply execute the below command:
+License is Apache-2. Each source file must include the Apache-2 header (build will fail otherwise). To update source files with the proper header, simply execute the below command:
 
 ```bash
 mvn license:update-file-header
