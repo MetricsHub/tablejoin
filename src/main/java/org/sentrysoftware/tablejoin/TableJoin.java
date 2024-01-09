@@ -339,7 +339,7 @@ public class TableJoin {
 						.collect(Collectors.toList());
 			}
 
-			return Collections.emptyList();
+			return new ArrayList<>();
 		}
 
 	}
