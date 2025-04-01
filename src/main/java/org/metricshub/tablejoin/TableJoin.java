@@ -1,8 +1,10 @@
+package org.metricshub.tablejoin;
+
 /*-
  * ╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲
  * TableJoin Utility
  * ჻჻჻჻჻჻
- * Copyright (C) 2023 Sentry Software
+ * Copyright (C) 2023 - 2025 MetricsHub
  * ჻჻჻჻჻჻
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +19,9 @@
  * limitations under the License.
  * ╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱╲╱
  */
-package org.sentrysoftware.tablejoin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,9 +38,7 @@ import java.util.stream.Stream;
  */
 public class TableJoin {
 
-	private TableJoin() {
-
-	}
+	private TableJoin() {}
 
 	/**
 	 * Joins to CSV-formatted tables (Strings) as an SQL JOIN statement would (INNER or LEFT JOIN)
@@ -66,15 +64,15 @@ public class TableJoin {
 	 *             When one of the arguments prevents the operation from working safely
 	 */
 	public static String join(
-			final String leftTable,
-			final String rightTable,
-			final int leftKeyColumnNumber,
-			final int rightKeyColumnNumber,
-			final String separator,
-			final String defaultRightLine,
-			final boolean wbemKeyType,
-			final boolean caseInsensitive) throws IllegalArgumentException {
-
+		final String leftTable,
+		final String rightTable,
+		final int leftKeyColumnNumber,
+		final int rightKeyColumnNumber,
+		final String separator,
+		final String defaultRightLine,
+		final boolean wbemKeyType,
+		final boolean caseInsensitive
+	) throws IllegalArgumentException {
 		if (separator == null || "".equals(separator)) {
 			throw new IllegalArgumentException("Separator cannot be null or empty");
 		}
@@ -85,13 +83,14 @@ public class TableJoin {
 		final List<String> defaultRightLineList = lineToList(defaultRightLine, ";");
 
 		final List<List<String>> result = join(
-				leftTableList,
-				rightTableList,
-				leftKeyColumnNumber,
-				rightKeyColumnNumber,
-				defaultRightLineList,
-				wbemKeyType,
-				caseInsensitive);
+			leftTableList,
+			rightTableList,
+			leftKeyColumnNumber,
+			rightKeyColumnNumber,
+			defaultRightLineList,
+			wbemKeyType,
+			caseInsensitive
+		);
 
 		return tableToString(result, separator);
 	}
@@ -110,12 +109,10 @@ public class TableJoin {
 	protected static String tableToString(final List<List<String>> table, final String separator) {
 		if (table != null) {
 			return table
-					.stream()
-					.filter(Objects::nonNull)
-					.map(line -> line
-							.stream()
-							.collect(Collectors.joining(separator)) + separator)
-					.collect(Collectors.joining("\n"));
+				.stream()
+				.filter(Objects::nonNull)
+				.map(line -> line.stream().collect(Collectors.joining(separator)) + separator)
+				.collect(Collectors.joining("\n"));
 		}
 		return null;
 	}
@@ -136,10 +133,10 @@ public class TableJoin {
 	public static List<List<String>> stringToTable(final String csvTable, final String separator) {
 		if (csvTable != null) {
 			return Stream
-					.of(csvTable.split("\n"))
-					.map(line -> lineToList(line, separator))
-					.filter(line -> !line.isEmpty())
-					.collect(Collectors.toList());
+				.of(csvTable.split("\n"))
+				.map(line -> lineToList(line, separator))
+				.filter(line -> !line.isEmpty())
+				.collect(Collectors.toList());
 		}
 		return null;
 	}
@@ -155,16 +152,12 @@ public class TableJoin {
 	 */
 	public static List<String> lineToList(String line, final String separator) {
 		if (line != null && !line.isEmpty()) {
-
 			// Make sure the line ends with the separator
 			line = !line.endsWith(separator) ? line + separator : line;
 
 			// Make sure we don't change the integrity of the line with the split in case of empty cells
 			final String[] split = line.split(separator, -1);
-			return Stream
-					.of(split)
-					.limit(split.length - 1L)
-					.collect(Collectors.toList());
+			return Stream.of(split).limit(split.length - 1L).collect(Collectors.toList());
 		}
 		return new ArrayList<>();
 	}
@@ -192,14 +185,24 @@ public class TableJoin {
 	 * @throws IllegalArgumentException
 	 *             When one of the arguments prevents the operation from working safely
 	 */
-	public static List<List<String>> join(final List<List<String>> leftTable, final List<List<String>> rightTable,
-										  final int leftKeyColumnNumber, final int rightKeyColumnNumber, final List<String> defaultRightLine,
-										  final boolean wbemKeyType, final boolean caseInsensitive) throws IllegalArgumentException {
-
+	public static List<List<String>> join(
+		final List<List<String>> leftTable,
+		final List<List<String>> rightTable,
+		final int leftKeyColumnNumber,
+		final int rightKeyColumnNumber,
+		final List<String> defaultRightLine,
+		final boolean wbemKeyType,
+		final boolean caseInsensitive
+	) throws IllegalArgumentException {
 		// Sanity check
 		if (leftKeyColumnNumber < 1 || rightKeyColumnNumber < 1) {
-			throw new IllegalArgumentException("Invalid key column number (leftKeyColumnNumber=" + leftKeyColumnNumber
-					+ ", rightKeyColumnNumber=" + rightKeyColumnNumber + ")");
+			throw new IllegalArgumentException(
+				"Invalid key column number (leftKeyColumnNumber=" +
+				leftKeyColumnNumber +
+				", rightKeyColumnNumber=" +
+				rightKeyColumnNumber +
+				")"
+			);
 		}
 
 		if (leftTable == null) {
@@ -216,32 +219,38 @@ public class TableJoin {
 
 		// Initialize the lookup table (a hash map)
 		if (null != rightTable) {
-
-			rightTableLookup = rightTable
+			rightTableLookup =
+				rightTable
 					.stream()
 					.filter(line -> rightKeyColumnNumber <= line.size())
-					.collect(Collectors.toMap(
+					.collect(
+						Collectors.toMap(
 							line -> getKey(line, rightKeyColumnNumber, wbemKeyType, caseInsensitive),
 							Function.identity(),
-							(oldValue, newValue) -> oldValue));
+							(oldValue, newValue) -> oldValue
+						)
+					);
 		} else {
 			rightTableLookup = new HashMap<>();
 		}
 
 		// Stream the left table, line by line
 		return leftTable
-				.stream()
-				.filter(leftLine -> isValidLeftLine(leftKeyColumnNumber, leftLine))
-				.map(leftLine -> joinLine(
-						leftLine,
-						leftKeyColumnNumber,
-						defaultRightLine,
-						wbemKeyType,
-						caseInsensitive,
-						handleDefaultRightLine,
-						rightTableLookup))
-				.filter(line -> !line.isEmpty())
-				.collect(Collectors.toList());
+			.stream()
+			.filter(leftLine -> isValidLeftLine(leftKeyColumnNumber, leftLine))
+			.map(leftLine ->
+				joinLine(
+					leftLine,
+					leftKeyColumnNumber,
+					defaultRightLine,
+					wbemKeyType,
+					caseInsensitive,
+					handleDefaultRightLine,
+					rightTableLookup
+				)
+			)
+			.filter(line -> !line.isEmpty())
+			.collect(Collectors.toList());
 	}
 
 	/**
@@ -256,8 +265,12 @@ public class TableJoin {
 	 *             Whether the matching is done case insensitive
 	 * @return {@link String} value
 	 */
-	public static String getKey(final List<String> line, final int keyColumnNumber, final boolean wbemKeyType,
-								   final boolean caseInsensitive) {
+	public static String getKey(
+		final List<String> line,
+		final int keyColumnNumber,
+		final boolean wbemKeyType,
+		final boolean caseInsensitive
+	) {
 		// Extract the key column from the line
 		String key = line.get(keyColumnNumber - 1);
 		// Special key options
@@ -284,9 +297,13 @@ public class TableJoin {
 	 * @return <code>true</code> if the left line matches the conditions above
 	 */
 	public static boolean isValidLeftLine(final int leftKeyColumnNumber, final List<String> leftLine) {
-		return leftKeyColumnNumber <= leftLine.size()
-				&& !leftLine.isEmpty()
-				&& !leftLine.get(leftKeyColumnNumber - 1).isEmpty();
+		// @formatter:off
+		// CHECKSTYLE:OFF
+		return (
+			leftKeyColumnNumber <= leftLine.size() && !leftLine.isEmpty() && !leftLine.get(leftKeyColumnNumber - 1).isEmpty()
+		);
+		// CHECKSTYLE:ON
+		// @formatter:on
 	}
 
 	/**
@@ -309,10 +326,15 @@ public class TableJoin {
 	 *             The right table when each row is indexed by the right key
 	 * @return a line representation, i.e. {@link List} of {@link String} values
 	 */
-	public static List<String> joinLine(final List<String> leftLine, final int leftKeyColumnNumber,
-										   final List<String> defaultRightLine, final boolean wbemKeyType, final boolean caseInsensitive,
-										   final boolean handleDefaultRightLine, final Map<String, List<String>> rightTableLookup) {
-
+	public static List<String> joinLine(
+		final List<String> leftLine,
+		final int leftKeyColumnNumber,
+		final List<String> defaultRightLine,
+		final boolean wbemKeyType,
+		final boolean caseInsensitive,
+		final boolean handleDefaultRightLine,
+		final Map<String, List<String>> rightTableLookup
+	) {
 		// Extract the key column from the left line
 		String leftKey = getKey(leftLine, leftKeyColumnNumber, wbemKeyType, caseInsensitive);
 
@@ -326,22 +348,18 @@ public class TableJoin {
 			// sometimes with the matching right line from the right table, and sometimes
 			// with the default right line
 
-			return Stream.concat(
-							leftLine.stream(),
-							rightLine != null ? rightLine.stream() : defaultRightLine.stream())
-					.collect(Collectors.toList());
-
+			return Stream
+				.concat(leftLine.stream(), rightLine != null ? rightLine.stream() : defaultRightLine.stream())
+				.collect(Collectors.toList());
 		} else {
 			// No default right line, which means that we first need to check whether the
 			// key is present in the right table
 			if (rightLine != null) {
-				return Stream.concat(leftLine.stream(), rightLine.stream())
-						.collect(Collectors.toList());
+				return Stream.concat(leftLine.stream(), rightLine.stream()).collect(Collectors.toList());
 			}
 
 			return new ArrayList<>();
 		}
-
 	}
 
 	/**
@@ -352,7 +370,6 @@ public class TableJoin {
 	 * @return Re-ordered WBEM path
 	 */
 	private static String normalizeWbemReference(String wbemPath) {
-
 		// wbemPath is in the form below:
 		// class.key1="value1",key2="value2"
 		// Split the WBEM path to have the class and the list of key properties
@@ -389,4 +406,3 @@ public class TableJoin {
 		return result.toString();
 	}
 }
-

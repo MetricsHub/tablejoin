@@ -1,13 +1,13 @@
 # TableJoin Utility
 
-![GitHub release (with filter)](https://img.shields.io/github/v/release/sentrysoftware/tablejoin)
-![Build](https://img.shields.io/github/actions/workflow/status/sentrysoftware/tablejoin/deploy.yml)
-![GitHub top language](https://img.shields.io/github/languages/top/sentrysoftware/tablejoin)
-![License](https://img.shields.io/github/license/sentrysoftware/tablejoin)
+![GitHub release (with filter)](https://img.shields.io/github/v/release/metricshub/tablejoin)
+![Build](https://img.shields.io/github/actions/workflow/status/metricshub/tablejoin/deploy.yml)
+![GitHub top language](https://img.shields.io/github/languages/top/metricshub/tablejoin)
+![License](https://img.shields.io/github/license/metricshub/tablejoin)
 
 The TableJoin utility is designed for joining tables expressed in CSV or structed as list of String lists. It enhances the flexibility of data processing by allowing developers to perform joint operations on specified tables.
 
-See [Project Documentation](https://sentrysoftware.org/tablejoin/) and the [Javadoc](https://sentrysoftware.org/tablejoin/apidocs/) for more information on how to use this library in your code.
+See [Project Documentation](https://metricshub.org/tablejoin/) and the [Javadoc](https://metricshub.org/tablejoin/apidocs/) for more information on how to use this library in your code.
 
 ## Build instructions
 
